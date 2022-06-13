@@ -50,8 +50,10 @@ class Saxon extends Soldier {
 
 // War
 class War {
-  vikingArmy = [];
-  saxonArmy = [];
+  constructor(){
+  this.vikingArmy = [];
+  this.saxonArmy = [];
+  }
 
   addViking(Viking){
     this.vikingArmy.push(Viking);
@@ -59,6 +61,7 @@ class War {
   addSaxon(Saxon){
     this.saxonArmy.push(Saxon);
   }
+
   vikingAttack(){
    let randomSaxon = Math.floor(Math.random() * this.saxonArmy.length);
    let selectedSaxon = this.saxonArmy[randomSaxon]
@@ -66,14 +69,15 @@ class War {
     let randomViking = Math.floor(Math.random() * this.vikingArmy.length)
     let selectedViking = this.vikingArmy[randomViking]
     
-    selectedSaxon.receiveDamage(selectedViking.strength)
+    let battleMessage2 = selectedSaxon.receiveDamage(selectedViking.attack())
     if(selectedSaxon.health <= 0){
       this.saxonArmy.splice(selectedSaxon, 1)
       
     }
-    // return selectedSaxon.receiveDamage(selectedViking.strength) ;
+    return battleMessage2;
      
   }
+
   saxonAttack(){
     let randomSaxon = Math.floor(Math.random() * this.saxonArmy.length);
     let selectedSaxon = this.saxonArmy[randomSaxon]
@@ -81,13 +85,14 @@ class War {
      let randomViking = Math.floor(Math.random() * this.vikingArmy.length)
      let selectedViking = this.vikingArmy[randomViking]
      
-     selectedViking.receiveDamage(selectedSaxon.strength)
+     let battleMessage = selectedViking.receiveDamage(selectedSaxon.strength)
      if(selectedViking.health <= 0){
        this.vikingArmy.splice(selectedViking, 1)
        
      }
-    //  return selectedViking.receiveDamage(selectedSaxon.strength) ;
+     return battleMessage ;
    }
+
    showStatus(){
       if(this.saxonArmy.length === 0){
       return `Vikings have won the war of the century!`;
@@ -97,6 +102,7 @@ class War {
       return `Vikings and Saxons are still in the thick of battle.`
     }
    }
+
 }
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
